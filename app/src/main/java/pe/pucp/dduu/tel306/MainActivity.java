@@ -56,21 +56,18 @@ import pe.pucp.dduu.tel306.entity.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] archivos = null;
-
-    public String[] getArchivos() {
-        return archivos;
-    }
-
-    public void setArchivos(String[] archivos) {
-        this.archivos = archivos;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        for (String archivo : MainActivity.this.fileList()) {
+            if (archivo.equals("login.json")) {
+                Intent intent = new Intent(this, QuestionActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
         fragmentoLogin();
         fragmentoRegistro();
         findViewById(R.id.fragmentRegistro).setVisibility(View.GONE);
@@ -108,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
                 buttonRegistro.setVisibility(View.VISIBLE);
             }
         });
+
+
+
+
 
     }
 
@@ -153,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
                             try (FileOutputStream outputStream = MainActivity.this.openFileOutput(fileNameJson, MODE_PRIVATE);
                                  FileWriter fileWriter = new FileWriter(outputStream.getFD());) {
                                 fileWriter.write(String.valueOf(response));
-                                setArchivos(MainActivity.this.fileList());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(MainActivity.this, "ggwp", Toast.LENGTH_SHORT).show();
+                            error.printStackTrace();
                         }
                     });
 
@@ -218,14 +219,6 @@ public class MainActivity extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     Log.d("infoApp", response);
                                     Toast.makeText(MainActivity.this, "se logro", Toast.LENGTH_SHORT).show();
-                                    String fileNameJson = "registro.json";
-                                    try (FileOutputStream outputStream = MainActivity.this.openFileOutput(fileNameJson, MODE_PRIVATE);
-                                         FileWriter fileWriter = new FileWriter(outputStream.getFD());) {
-                                        fileWriter.write(String.valueOf(response));
-                                        setArchivos(MainActivity.this.fileList());
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
                                 }
                             },
                             new Response.ErrorListener() {

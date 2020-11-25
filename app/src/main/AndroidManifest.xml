@@ -16,7 +16,6 @@
         android:theme="@style/Theme.DemocrApp"
         tools:targetApi="m">
         <activity android:name=".QuestionActivity">
-
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>

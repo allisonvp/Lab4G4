@@ -30,7 +30,6 @@ public class LoginFragment extends Fragment implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
