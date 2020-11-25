@@ -37,26 +37,26 @@ public class LoginFragment extends Fragment implements OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        Button buttonLogin1 = (Button) view.findViewById(R.id.buttonLogin1);
+        /*Button buttonLogin1 = (Button) view.findViewById(R.id.buttonLogin1);
         //buttonLogin1.setOnClickListener(this);
         buttonLogin1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
         return view;
     }
 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
+        /*switch (view.getId()) {
             case R.id.buttonLogin1:
                 MainActivity mainActivity = new MainActivity();
                 mainActivity.iniciarSesion(view);
                 break;
 
-        }
+        }*/
     }
 }

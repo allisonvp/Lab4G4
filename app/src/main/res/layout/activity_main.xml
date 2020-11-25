@@ -9,50 +9,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="66dp">
 
         <FrameLayout
-            android:id="@+id/fragmentLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:id="@+id/fragmentRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="175dp">
 
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/fragmentRegistro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:id="@+id/fragmentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="175dp">
 
         </FrameLayout>
 
         <Button
             android:id="@+id/buttonLogin"
-            android:layout_width="match_parent"
+            android:layout_width="156dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
             android:onClick="iniciarSesion"
             android:text="Login" />
 
         <Button
             android:id="@+id/buttonRegistro"
-            android:layout_width="match_parent"
+            android:layout_width="156dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
             android:text="Regístrate" />
 
         <Button
             android:id="@+id/buttonRegistrase"
-            android:layout_width="match_parent"
+            android:layout_width="156dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
             android:onClick="registrarse"
             android:text="Registrarse" />
 
         <Button
             android:id="@+id/buttonIniciaSesion"
-            android:layout_width="match_parent"
+            android:layout_width="156dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
             android:text="Inicia Sesión" />
 
     </LinearLayout>

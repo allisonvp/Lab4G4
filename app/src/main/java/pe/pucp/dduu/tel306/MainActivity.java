@@ -107,9 +107,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
     public void fragmentoLogin() {
@@ -144,41 +141,53 @@ public class MainActivity extends AppCompatActivity {
             params.put("email", correo);
             params.put("password", password);
 
-            JSONObject jsonObj = new JSONObject(params);
-            JsonObjectRequest jsonObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObj,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Toast.makeText(MainActivity.this, "se logro", Toast.LENGTH_SHORT).show();
-                            String fileNameJson = "login.json";
-                            try (FileOutputStream outputStream = MainActivity.this.openFileOutput(fileNameJson, MODE_PRIVATE);
-                                 FileWriter fileWriter = new FileWriter(outputStream.getFD());) {
-                                fileWriter.write(String.valueOf(response));
-                            } catch (IOException e) {
-                                e.printStackTrace();
+            if (correo.isEmpty()) {
+                editTextLoginCorreo.setError("No puede estar vacio");
+            }
+            if (password.isEmpty()) {
+                editTextLoginPassword.setError("No puede estar vacio");
+            }
+            if (!correo.isEmpty() && !password.isEmpty()) {
+                JSONObject jsonObj = new JSONObject(params);
+                JsonObjectRequest jsonObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObj,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+
+                                Toast.makeText(MainActivity.this, "Inicio de sesion válido", Toast.LENGTH_SHORT).show();
+                                String fileNameJson = "login.json";
+                                try (FileOutputStream outputStream = MainActivity.this.openFileOutput(fileNameJson, MODE_PRIVATE);
+                                     FileWriter fileWriter = new FileWriter(outputStream.getFD());) {
+                                    fileWriter.write(String.valueOf(response));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                Gson gson = new Gson();
+                                String strResponse = String.valueOf(response);
+                                Usuario usuario = gson.fromJson(strResponse, Usuario.class);
+
+
+                                Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                                intent.putExtra("id", usuario.getId());
+                                String strId = String.valueOf(usuario.getId());
+                                Log.d("infoApp", strId);
+                                startActivity(intent);
+                                finish();
+
                             }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(MainActivity.this, "Usuario no registrado", Toast.LENGTH_SHORT).show();
+                                error.printStackTrace();
+                            }
+                        });
 
-                            Gson gson = new Gson();
-                            String strResponse = String.valueOf(response);
-                            Usuario usuario = gson.fromJson(strResponse, Usuario.class);
-
-                            Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
-                            intent.putExtra("id", usuario.getId());
-                            String strId = String.valueOf(usuario.getId());
-                            Log.d("infoApp", strId);
-                            startActivity(intent);
-                            finish();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(MainActivity.this, "ggwp", Toast.LENGTH_SHORT).show();
-                            error.printStackTrace();
-                        }
-                    });
-
-            requestQueue.add(jsonObjRequest);
+                requestQueue.add(jsonObjRequest);
+            }
         }
     }
 
@@ -218,14 +227,14 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String response) {
                                     Log.d("infoApp", response);
-                                    Toast.makeText(MainActivity.this, "se logro", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Registro de usuario exitoso", Toast.LENGTH_SHORT).show();
                                 }
                             },
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     Log.d("infoApp", error.toString());
-                                    Toast.makeText(MainActivity.this, "ggwp", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "El usuario ya se encuentra registrado", Toast.LENGTH_SHORT).show();
                                 }
                             }) {
                         @Override

@@ -8,13 +8,14 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/editTextRegistroNombre"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Nombre"
@@ -22,7 +23,7 @@
 
         <EditText
             android:id="@+id/editTextRegistroCorreo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Correo"
@@ -30,7 +31,7 @@
 
         <EditText
             android:id="@+id/editTextRegistroPassword"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Contraseña"
