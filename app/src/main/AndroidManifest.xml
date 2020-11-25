@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="pe.pucp.dduu.tel306">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_dduu"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_dduu_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DemocrApp">
+        android:theme="@style/Theme.DemocrApp"
+        tools:targetApi="m">
+        <activity android:name=".QuestionActivity">
+
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
