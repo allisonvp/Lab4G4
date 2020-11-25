@@ -62,7 +62,8 @@ public class QListAdapter extends RecyclerView.Adapter<QListAdapter.QuestionView
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(contexto, "HIZO CLICK EN " + id, Toast.LENGTH_SHORT).show();
+                ((QuestionActivity)contexto).checklogin();
+                Toast.makeText(contexto, "Cargando...", Toast.LENGTH_SHORT).show();
                 try {
                     checkAnswer(id);
                 } catch (IOException e) {
@@ -72,6 +73,8 @@ public class QListAdapter extends RecyclerView.Adapter<QListAdapter.QuestionView
             }
         });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -170,15 +173,15 @@ public class QListAdapter extends RecyclerView.Adapter<QListAdapter.QuestionView
                         }
                         DtoAnswers dto = gson.fromJson(responsestr, DtoAnswers.class);
                         if (hasAnswered.equals("true")) {
+
                             Log.d("debugeo", "STATS: ES TRUE");
-                            Log.d("debugeo", dto.getAnswerstats()[0].getAnswer().getAnswerText());
-                            Stats_fragment stats = Stats_fragment.newInstance(dto.getAnswerstats(), contexto);
+                            Stats_fragment stats = Stats_fragment.newInstance(dto, contexto);
                             fm.beginTransaction()
                                     .add(R.id.idfragment_details, stats)
                                     .commit();
                         } else {
                             Log.d("debugeo", "STATS: ES FALSE");
-                            QuestionDetails_fragment details = QuestionDetails_fragment.newInstance(dto.getQuestion(), contexto);
+                            QuestionDetails_fragment details = QuestionDetails_fragment.newInstance(dto.getQuestion(),userid, contexto);
                             fm.beginTransaction()
                                     .add(R.id.idfragment_details, details)
                                     .commit();

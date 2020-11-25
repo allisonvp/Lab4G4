@@ -74,7 +74,7 @@ public class Stats_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_stats_fragment, container, false);
 
         AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
-
+        anyChartView.setProgressBar(view.findViewById(R.id.progress_bar));
 
         Pie pie = AnyChart.pie();
 

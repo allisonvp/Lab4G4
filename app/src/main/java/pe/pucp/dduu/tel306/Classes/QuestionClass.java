@@ -37,4 +37,14 @@ public class QuestionClass {
     public void setAnswers(AnswerClass[] answers) {
         this.answers = answers;
     }
+
+    public String[] forSpinner(){
+        String[] ans= new String[answers.length];
+        int i=0;
+        for (AnswerClass answer : answers){
+            ans[i]= answer.getAnswerText();
+            i++;
+        }
+        return ans;
+    }
 }
