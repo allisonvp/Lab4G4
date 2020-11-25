@@ -74,8 +74,6 @@ public class QListAdapter extends RecyclerView.Adapter<QListAdapter.QuestionView
         });
     }
 
-
-
     @Override
     public int getItemCount() {
         return lista.length;
