@@ -55,6 +55,16 @@ import pe.pucp.dduu.tel306.entity.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String[] archivos = null;
+
+    public String[] getArchivos() {
+        return archivos;
+    }
+
+    public void setArchivos(String[] archivos) {
+        this.archivos = archivos;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,8 +150,9 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "se logro", Toast.LENGTH_SHORT).show();
                             String fileNameJson = "login.json";
                             try (FileOutputStream outputStream = MainActivity.this.openFileOutput(fileNameJson, MODE_PRIVATE);
-                                 FileWriter fileWriter = new FileWriter(outputStream.getFD());){
-                                 fileWriter.write(String.valueOf(response));
+                                 FileWriter fileWriter = new FileWriter(outputStream.getFD());) {
+                                fileWriter.write(String.valueOf(response));
+                                setArchivos(MainActivity.this.fileList());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -223,13 +234,21 @@ public class MainActivity extends AppCompatActivity {
                 jsonBody.put("password", password);
                 final String mRequestBody = jsonBody.toString();
 
-                if(!nombre.isEmpty() && !correo.isEmpty() && !password.isEmpty()) {
+                if (!nombre.isEmpty() && !correo.isEmpty() && !password.isEmpty()) {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     Log.d("infoApp", response);
                                     Toast.makeText(MainActivity.this, "se logro", Toast.LENGTH_SHORT).show();
+                                    String fileNameJson = "registro.json";
+                                    try (FileOutputStream outputStream = MainActivity.this.openFileOutput(fileNameJson, MODE_PRIVATE);
+                                         FileWriter fileWriter = new FileWriter(outputStream.getFD());) {
+                                        fileWriter.write(String.valueOf(response));
+                                        setArchivos(MainActivity.this.fileList());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }, new Response.ErrorListener() {
                         @Override
@@ -242,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
                         public String getBodyContentType() {
                             return "application/json; charset=utf-8";
                         }
+
                         @Override
                         public byte[] getBody() throws AuthFailureError {
                             try {
@@ -251,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
                                 return null;
                             }
                         }
+
                         @Override
                         protected Response<String> parseNetworkResponse(NetworkResponse response) {
                             String responseString = "";
