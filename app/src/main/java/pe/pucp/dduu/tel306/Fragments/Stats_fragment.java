@@ -11,9 +11,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.chart.common.listener.Event;
+import com.anychart.chart.common.listener.ListenersInterface;
+import com.anychart.charts.Pie;
+import com.anychart.enums.Align;
+import com.anychart.enums.LegendLayout;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 import pe.pucp.dduu.tel306.Classes.AnswerClass;
 import pe.pucp.dduu.tel306.Classes.AnswerStatsClass;
+import pe.pucp.dduu.tel306.Classes.DtoAnswers;
 import pe.pucp.dduu.tel306.R;
 
 /**
@@ -23,13 +39,11 @@ import pe.pucp.dduu.tel306.R;
  */
 public class Stats_fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private static  AnswerStatsClass[] answerStats;
+    private static DtoAnswers dto;
     private static Context contexto;
 
     public Stats_fragment() {
@@ -42,10 +56,9 @@ public class Stats_fragment extends Fragment {
      *
      * @return A new instance of fragment Stats_fragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static Stats_fragment newInstance(AnswerStatsClass[] as,Context c) {
+    public static Stats_fragment newInstance(DtoAnswers dt,Context c) {
         Stats_fragment fragment = new Stats_fragment();
-        answerStats=as;
+        dto=dt;
         contexto = c;
         return fragment;
     }
@@ -53,35 +66,60 @@ public class Stats_fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats_fragment, container, false);
-        TextView tView = view.findViewById(R.id.idtext);
 
-        int totalcount=getTotalCount();
-        String texto = "";
-        for (AnswerStatsClass as : answerStats){
-            int count= Integer.parseInt(as.getCount());
-            texto = texto + as.getAnswer().getAnswerText() + ": "+ String.valueOf(count*100/totalcount) + "%\n";
+        AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
+
+
+        Pie pie = AnyChart.pie();
+
+        pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
+            @Override
+            public void onClick(Event event) {
+                Toast.makeText(contexto, event.getData().get("x") + ": " + event.getData().get("value"), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        List<DataEntry> data = new ArrayList<>();
+
+        for (AnswerStatsClass as : dto.getAnswerstats()){
+            data.add(new ValueDataEntry(as.getAnswer().getAnswerText(), Integer.parseInt(as.getCount())));
+
         }
-        tView.setText(texto);
-        Log.d("debugeo", texto);
+
+        pie.data(data);
+
+        pie.title(dto.getQuestion().getQuestionText());
+
+        pie.labels().position("outside");
+
+        pie.legend().title().enabled(true);
+        pie.legend().title()
+                .text("Respuestas")
+                .padding(0d, 0d, 10d, 0d);
+
+        pie.legend()
+                .position("center-bottom")
+                .itemsLayout(LegendLayout.HORIZONTAL)
+                .align(Align.CENTER);
+
+        anyChartView.setChart(pie);
+
+        Log.d("debugeo", "FIN DE CHART");
         return view;
     }
 
-    private int getTotalCount(){
-        int count= 0;
-        for (AnswerStatsClass as : answerStats){
-            count= count + Integer.parseInt(as.getCount());
-        }
-        return count;
-    }
+//    private int getTotalCount(){
+//        int count= 0;
+//        for (AnswerStatsClass as : answerStats){
+//            count= count + Integer.parseInt(as.getCount());
+//        }
+//        return count;
+//    }
 
 }
