@@ -8,8 +8,9 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
         android:orientation="vertical">
 
         <EditText
@@ -28,12 +29,6 @@
             android:ems="10"
             android:hint="Contraseña"
             android:inputType="textPassword" />
-
-        <Button
-            android:id="@+id/buttonLogin1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login 1" />
 
     </LinearLayout>
 
