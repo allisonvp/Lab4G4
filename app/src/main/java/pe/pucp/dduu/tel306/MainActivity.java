@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -156,6 +157,17 @@ public class MainActivity extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+
+                            Gson gson = new Gson();
+                            String strResponse = String.valueOf(response);
+                            Usuario usuario = gson.fromJson(strResponse, Usuario.class);
+
+                            Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                            intent.putExtra("id", usuario.getId());
+                            String strId = String.valueOf(usuario.getId());
+                            Log.d("infoApp", strId);
+                            startActivity(intent);
+                            finish();
                         }
                     },
                     new Response.ErrorListener() {
@@ -166,41 +178,6 @@ public class MainActivity extends AppCompatActivity {
                     });
 
             requestQueue.add(jsonObjRequest);
-
-            /*StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Gson gson = new Gson();
-                            Usuario usuario = gson.fromJson(response, Usuario.class);
-
-                            EditText editTextLoginCorreo = findViewById(R.id.editTextLoginCorreo);
-                            EditText editTextLoginPassword = findViewById(R.id.editTextLoginPassword);
-
-                            String correo = editTextLoginCorreo.getText().toString();
-                            String password = editTextLoginPassword.getText().toString();
-
-                            if(usuario.getEmail().equals(correo) && usuario.getPassword().equals(password)) {
-                                Toast.makeText(MainActivity.this,"se logro", Toast.LENGTH_SHORT).show();
-                            }
-                            Toast.makeText(MainActivity.this,"se logro", Toast.LENGTH_SHORT).show();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(MainActivity.this,"ggwp", Toast.LENGTH_SHORT).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("email", "a20160555@pucp.pe");
-                    params.put("password", "1234");
-                    return params;
-                }
-            };
-            requestQueue.add(stringRequest);*/
         }
     }
 
@@ -250,13 +227,14 @@ public class MainActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                 }
-                            }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("infoApp", error.toString());
-                            Toast.makeText(MainActivity.this, "ggwp", Toast.LENGTH_SHORT).show();
-                        }
-                    }) {
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.d("infoApp", error.toString());
+                                    Toast.makeText(MainActivity.this, "ggwp", Toast.LENGTH_SHORT).show();
+                                }
+                            }) {
                         @Override
                         public String getBodyContentType() {
                             return "application/json; charset=utf-8";
@@ -284,7 +262,6 @@ public class MainActivity extends AppCompatActivity {
 
                     requestQueue.add(stringRequest);
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
