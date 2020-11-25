@@ -37,7 +37,10 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -135,6 +138,13 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Toast.makeText(MainActivity.this, "se logro", Toast.LENGTH_SHORT).show();
+                            String fileNameJson = "login.json";
+                            try (FileOutputStream outputStream = MainActivity.this.openFileOutput(fileNameJson, MODE_PRIVATE);
+                                 FileWriter fileWriter = new FileWriter(outputStream.getFD());){
+                                 fileWriter.write(String.valueOf(response));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener() {

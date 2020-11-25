@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 
 public class LoginFragment extends Fragment {
 
-    View view;
+    /*View view;
     FragmentManager fragmentManager = getFragmentManager();
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();*/
 
     public LoginFragment() {
         // Required empty public constructor

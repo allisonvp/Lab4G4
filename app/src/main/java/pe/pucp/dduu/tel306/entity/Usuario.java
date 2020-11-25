@@ -1,11 +1,11 @@
 package pe.pucp.dduu.tel306.entity;
 
+
 public class Usuario {
 
     private String name;
     private String email;
     private String password;
-
 
     public String getName() {
         return name;
