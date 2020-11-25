@@ -24,6 +24,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import pe.pucp.dduu.tel306.Classes.QuestionClass;
 import pe.pucp.dduu.tel306.Fragments.QuestionList_fragment;
+import pe.pucp.dduu.tel306.entity.Usuario;
 
 import com.google.gson.Gson;
 
@@ -42,7 +43,7 @@ public class QuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         checklogin();
-//        obteneruserid();
+        obteneruserid();
 
         if (isInternetAvailable()) {
             try {
@@ -138,16 +139,22 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
-//    public void obteneruserid() {
-//        try (FileInputStream fileInputStream = openFileInput("login.json");
-//             FileReader fileReader = new FileReader(fileInputStream.getFD());
-//             BufferedReader bufferedReader = new BufferedReader(fileReader)) ;){
-//            String json = bufferedReador.readLine();
-//
-//        }catch(IOException e){
-//
-//        }
-//    }
+    public void obteneruserid() {
+        try (FileInputStream fileInputStream = openFileInput("login.json");
+             FileReader fileReader = new FileReader(fileInputStream.getFD());
+             BufferedReader bufferedReader = new BufferedReader(fileReader);){
+            String json = bufferedReader.readLine();
+            Gson gson = new Gson();
+            Usuario user = gson.fromJson(json, Usuario.class);
+            userid = String.valueOf(user.getId());
+            Log.d("debugeo", "Bienvenido "+user.getName() + " "+user.getId());
+            Log.d("debugeo", "Userid: "+userid);
+
+        }catch(IOException e){
+            Log.d("debugeo", "NO LEYO EL JSON");
+            e.printStackTrace();
+        }
+    }
 
     public void checklogin() {
         String[] files = QuestionActivity.this.fileList();
