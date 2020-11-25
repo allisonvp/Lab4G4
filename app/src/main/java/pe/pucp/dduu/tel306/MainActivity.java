@@ -1,6 +1,7 @@
 package pe.pucp.dduu.tel306;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -93,21 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 buttonRegistro.setVisibility(View.VISIBLE);
             }
         });
-
-        EditText editTextRegistroNombre = findViewById(R.id.editTextRegistroNombre);
-        EditText editTextRegistroCorreo = findViewById(R.id.editTextRegistroCorreo);
-        EditText editTextRegistroPassword = findViewById(R.id.editTextRegistroPassword);
-
-        String nombre = editTextRegistroNombre.getText().toString();
-        String correo = editTextRegistroCorreo.getText().toString();
-        String password = editTextRegistroPassword.getText().toString();
-
-        /*SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("name", nombre);
-        editor.putString("email", correo);
-        editor.putString("password", password);
-        editor.commit();*/
 
     }
 
