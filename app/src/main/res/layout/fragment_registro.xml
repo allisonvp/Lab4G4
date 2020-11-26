@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/nombre"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editTextRegistroCorreo"
@@ -27,7 +28,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/correo"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editTextRegistroPassword"
@@ -35,7 +37,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/contrase_a"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:autofillHints="" />
     </LinearLayout>
 
 </FrameLayout>
