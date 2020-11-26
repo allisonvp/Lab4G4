@@ -4,7 +4,7 @@
 _Due to the recent political events in the country of United Departments of South America (DDUU), the government has selected a group of students from the Pontificia Universidad Catolica del Peru from the TEL306 class to develop an app that contributes to the preservation of democracy. With this application, the citizens will be asked various questions so that the decision that are made, they are according to popular consensus._
 
 ## API REST :cloud:
-_The country has enabled Web Services which guarantee the citizens' information security. All questions are provided by this country's government through its API _
+_The country has enabled Web Services which guarantee the citizens' information security. All questions are provided by this country's government through its API._
 
 ## Let's start! 📌
 * All users can register themselves, but only the users that are properly **logged in** can see the questions. On the registration form, the username must have exactly two words, each one starting with uppercase.
@@ -57,7 +57,7 @@ git clone https://github.com/allisonvp/Lab4G4.git
 </table>  
 
 ## More information 📖
-_You can find more information about how we made the charts in [AnyChart for Android](https://github.com/AnyChart/AnyChart-Android)_
+_You can find more information about how we made the charts in [AnyChart for Android](https://github.com/AnyChart/AnyChart-Android)._
 
 ## Authors ✒️
 * **Katherine Vargas** - *Author* - 20160555
@@ -69,5 +69,5 @@ _You can find more information about how we made the charts in [AnyChart for And
 
 ## License :green_book:
 
-- Copyright 2020 © **Bizcochitos**
-- Project from **Mobile Application Development**
+- Copyright 2020 © **Bizcochitos**.
+- Project from **Mobile Application Development**.
