@@ -35,7 +35,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
             android:onClick="iniciarSesion"
-            android:text="Login" />
+            android:text="@string/login" />
 
         <Button
             android:id="@+id/buttonRegistro"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
-            android:text="Regístrate" />
+            android:text="@string/reg_strate" />
 
         <Button
             android:id="@+id/buttonRegistrase"
@@ -52,7 +52,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
             android:onClick="registrarse"
-            android:text="Registrarse" />
+            android:text="@string/registrarse" />
 
         <Button
             android:id="@+id/buttonIniciaSesion"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
-            android:text="Inicia Sesión" />
+            android:text="@string/inicia_sesi_n" />
 
     </LinearLayout>
 

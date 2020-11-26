@@ -46,6 +46,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.jar.JarException;
+import java.util.regex.Pattern;
 
 /*import okhttp3.MediaType;
 import okhttp3.Request;
@@ -202,6 +203,9 @@ public class MainActivity extends AppCompatActivity {
                 EditText editTextRegistroPassword = findViewById(R.id.editTextRegistroPassword);
 
                 String nombre = editTextRegistroNombre.getText().toString();
+
+                boolean valid = Pattern.matches("[A-Z]([a-z])* [A-Z]([a-z])*", nombre);
+
                 String correo = editTextRegistroCorreo.getText().toString();
                 String password = editTextRegistroPassword.getText().toString();
 
@@ -220,49 +224,52 @@ public class MainActivity extends AppCompatActivity {
                 jsonBody.put("email", correo);
                 jsonBody.put("password", password);
                 final String mRequestBody = jsonBody.toString();
-
-                if (!nombre.isEmpty() && !correo.isEmpty() && !password.isEmpty()) {
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    Log.d("infoApp", response);
-                                    Toast.makeText(MainActivity.this, "Registro de usuario exitoso", Toast.LENGTH_SHORT).show();
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.d("infoApp", error.toString());
-                                    Toast.makeText(MainActivity.this, "El usuario ya se encuentra registrado", Toast.LENGTH_SHORT).show();
-                                }
-                            }) {
-                        @Override
-                        public String getBodyContentType() {
-                            return "application/json; charset=utf-8";
-                        }
-
-                        @Override
-                        public byte[] getBody() throws AuthFailureError {
-                            try {
-                                return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
-                            } catch (UnsupportedEncodingException uee) {
-                                VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
-                                return null;
+                if (valid) {
+                    if (!nombre.isEmpty() && !correo.isEmpty() && !password.isEmpty()) {
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Log.d("infoApp", response);
+                                        Toast.makeText(MainActivity.this, "Registro de usuario exitoso", Toast.LENGTH_SHORT).show();
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.d("infoApp", error.toString());
+                                        Toast.makeText(MainActivity.this, "El usuario ya se encuentra registrado", Toast.LENGTH_SHORT).show();
+                                    }
+                                }) {
+                            @Override
+                            public String getBodyContentType() {
+                                return "application/json; charset=utf-8";
                             }
-                        }
 
-                        @Override
-                        protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                            String responseString = "";
-                            if (response != null) {
-                                responseString = String.valueOf(response.statusCode);
+                            @Override
+                            public byte[] getBody() throws AuthFailureError {
+                                try {
+                                    return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                                } catch (UnsupportedEncodingException uee) {
+                                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                                    return null;
+                                }
                             }
-                            return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                        }
-                    };
 
-                    requestQueue.add(stringRequest);
+                            @Override
+                            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                                String responseString = "";
+                                if (response != null) {
+                                    responseString = String.valueOf(response.statusCode);
+                                }
+                                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                            }
+                        };
+
+                        requestQueue.add(stringRequest);
+                    }
+                }else{
+                    editTextRegistroNombre.setError("El nombre debe consistir en 2 palabras. Ejm: Nick Jonas");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

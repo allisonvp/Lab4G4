@@ -20,7 +20,8 @@
             android:ems="10"
             android:hint="Correo"
             android:inputType="textPersonName"
-            android:textAlignment="viewStart" />
+            android:textAlignment="viewStart"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/editTextLoginPassword"
