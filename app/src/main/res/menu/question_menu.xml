@@ -5,6 +5,6 @@
     <item
         android:id="@+id/logout"
         android:onClick="logout"
-        android:title="Cerrar Sesión"
+        android:title="@string/cerrar_sesi_n"
         app:showAsAction="collapseActionView|withText" />
 </menu>

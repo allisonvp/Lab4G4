@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import okhttp3.Call;
@@ -36,14 +37,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity {
-    private static String userid = "347";
+    private static Usuario usersession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         checklogin();
-        obteneruserid();
+        obteneruser();
+        TextView title = findViewById(R.id.idtitleq);
+        String titulo = "Bienvenid@, " + usersession.getName();
+        title.setText(titulo);
 
         if (isInternetAvailable()) {
             try {
@@ -54,8 +58,6 @@ public class QuestionActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No tiene conexión a internet", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     @Override
@@ -69,6 +71,7 @@ public class QuestionActivity extends AppCompatActivity {
         Toast.makeText(this, "SESIÖN CERRADA", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     void getQuestions() throws IOException {
@@ -115,7 +118,7 @@ public class QuestionActivity extends AppCompatActivity {
                                         .commit();
                             }
 
-                            QuestionList_fragment listFragment = QuestionList_fragment.newInstance(userid, lista, QuestionActivity.this);
+                            QuestionList_fragment listFragment = QuestionList_fragment.newInstance(String.valueOf(usersession.getId()), lista, QuestionActivity.this);
                             getSupportFragmentManager().beginTransaction()
                                     .add(R.id.idfragment_list, listFragment)
                                     .commit();
@@ -139,18 +142,17 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
-    public void obteneruserid() {
+    public void obteneruser() {
         try (FileInputStream fileInputStream = openFileInput("login.json");
              FileReader fileReader = new FileReader(fileInputStream.getFD());
-             BufferedReader bufferedReader = new BufferedReader(fileReader);){
+             BufferedReader bufferedReader = new BufferedReader(fileReader);) {
             String json = bufferedReader.readLine();
             Gson gson = new Gson();
             Usuario user = gson.fromJson(json, Usuario.class);
-            userid = String.valueOf(user.getId());
-            Log.d("debugeo", "Bienvenido "+user.getName() + " "+user.getId());
-            Log.d("debugeo", "Userid: "+userid);
+            usersession = user;
+            Log.d("debugeo", "Bienvenido " + user.getName() + " " + user.getId());
 
-        }catch(IOException e){
+        } catch (IOException e) {
             Log.d("debugeo", "NO LEYO EL JSON");
             e.printStackTrace();
         }
@@ -170,6 +172,7 @@ public class QuestionActivity extends AppCompatActivity {
             Toast.makeText(this, "No se encuentra logueado", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
