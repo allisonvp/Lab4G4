@@ -38,7 +38,7 @@ git clone https://github.com/allisonvp/Lab4G4.git
             </sup>            
         </td>
         <td width="25%">
-            <h3 align="center">Answer the Question</h3>
+            <h3 align="center">Answer</h3>
             <hr>          
             <img src="IMG-20201125-WA0005.jpg" alt="a">
             <sup>
@@ -46,7 +46,7 @@ git clone https://github.com/allisonvp/Lab4G4.git
             </sup>            
         </td>
         <td width="25%">
-            <h3 align="center">Question Statistics</h3>
+            <h3 align="center">Statistics</h3>
             <hr>          
             <img src="IMG-20201125-WA0004.jpg" alt="a">
             <sup>
